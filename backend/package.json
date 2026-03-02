@@ -1,0 +1,24 @@
+{
+  "name": "jumbotail-shipping-estimator",
+  "version": "1.0.0",
+  "description": "B2B E-Commerce Shipping Charge Estimator API",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:init": "node src/db/init.js",
+    "test": "jest --verbose --forceExit"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "node-cache": "^5.1.2",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
