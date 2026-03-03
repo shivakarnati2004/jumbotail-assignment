@@ -1,17 +1,26 @@
 /**
  * PostgreSQL Connection Pool
- * Configures and exports a shared pg.Pool instance.
+ * Supports both DATABASE_URL (Render) and individual env vars (local dev).
  */
 const { Pool } = require('pg');
 require('dotenv').config();
 
+const poolConfig = process.env.DATABASE_URL
+  ? {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+  }
+  : {
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT, 10) || 5432,
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    database: process.env.DB_NAME || 'jumbotail_shipping',
+  };
+
 const pool = new Pool({
-  host:     process.env.DB_HOST || 'localhost',
-  port:     parseInt(process.env.DB_PORT, 10) || 5432,
-  user:     process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  database: process.env.DB_NAME || 'jumbotail_shipping',
-  max:      20,
+  ...poolConfig,
+  max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });

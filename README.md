@@ -487,6 +487,50 @@ npx vite --host
 
 ---
 
+## 🚀 Deploy to Render
+
+This project includes a **`render.yaml`** blueprint for one-click deployment.
+
+### Option A: One-Click Blueprint
+
+1. Push this repo to GitHub
+2. Go to [Render Dashboard → Blueprints](https://dashboard.render.com/blueprints)
+3. Click **New Blueprint Instance** → select your GitHub repo
+4. Render will auto-detect `render.yaml` and create:
+   - A **PostgreSQL** database (free tier)
+   - A **Web Service** (free tier)
+5. **Set `GEMINI_API_KEY`** in the Render dashboard → Environment tab
+6. After the first deploy, initialize the database:
+   ```bash
+   # In Render Shell (or connect to the DB externally)
+   npm run db:init
+   ```
+
+### Option B: Manual Setup
+
+1. **Create a PostgreSQL database** on Render (free tier)
+2. **Create a Web Service** (Node):
+   - **Build Command**: `npm run render-build`
+   - **Start Command**: `npm start`
+3. **Add Environment Variables** in the Render dashboard:
+   | Variable | Value |
+   |:---|:---|
+   | `NODE_ENV` | `production` |
+   | `DATABASE_URL` | *(auto from Render PostgreSQL)* |
+   | `GEMINI_API_KEY` | Your Gemini API key |
+4. Deploy and initialize the database
+
+### Environment Variables Reference
+
+| Variable | Required | Description |
+|:---|:---:|:---|
+| `DATABASE_URL` | ✅ | PostgreSQL connection string (provided by Render) |
+| `GEMINI_API_KEY` | ✅ | Google Gemini AI API key |
+| `NODE_ENV` | ✅ | Set to `production` on Render |
+| `PORT` | ❌ | Auto-set by Render (default: 3000) |
+
+---
+
 ## 🧪 Testing
 
 ```bash
