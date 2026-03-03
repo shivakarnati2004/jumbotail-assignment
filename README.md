@@ -18,19 +18,26 @@
 
 ---
 
-## 🎬 Live Demo
+## 🎬 App Preview
 
-> Watch the full walkthrough of the application — from the splash screen to the shipping calculator, dashboard, and all management pages.
+> A quick look at the application — from the cinematic splash screen to the shipping calculator and management dashboard.
 
 <p align="center">
-  <img src="screenshots/demo.webp" alt="Jumbotail App Demo" width="800"/>
+  <img src="screenshots/splash_screen.png" alt="Splash Screen" width="400"/>
+  <img src="screenshots/dashboard.png" alt="Dashboard" width="400"/>
 </p>
+<p align="center">
+  <img src="screenshots/calculator.png" alt="Shipping Calculator" width="400"/>
+  <img src="screenshots/warehouses.png" alt="Warehouses Map" width="400"/>
+</p>
+
+> 📸 **[See all screenshots below](#-screenshots)** — Dashboard, Calculator, Products, Customers, Sellers, Warehouses, Orders
 
 ---
 
 ## 📋 Table of Contents
 
-- [Live Demo](#-live-demo)
+- [App Preview](#-app-preview)
 - [Problem Statement](#-problem-statement)
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)

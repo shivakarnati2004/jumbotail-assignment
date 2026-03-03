@@ -1,7 +1,7 @@
 /**
  * API service — centralizes all backend HTTP calls.
  */
-const API_BASE = '/api/v1';
+const API_BASE = 'http://localhost:3000/api/v1';
 
 async function request(url, options = {}) {
     const res = await fetch(`${API_BASE}${url}`, {

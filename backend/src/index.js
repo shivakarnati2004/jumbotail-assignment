@@ -11,7 +11,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const errorHandler = require('./middleware/errorHandler');
 
 // Routes
@@ -57,24 +56,13 @@ app.get('/api/v1/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// ── Serve Frontend (Production) ──────────────────────────────
-if (process.env.NODE_ENV === 'production') {
-    const frontendDist = path.join(__dirname, '../../frontend/dist');
-    app.use(express.static(frontendDist));
-
-    // SPA catch-all — any non-API route serves index.html
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(frontendDist, 'index.html'));
+// ── 404 Handler ──────────────────────────────────────────────
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        error: { message: `Route ${req.method} ${req.originalUrl} not found`, code: 404 },
     });
-} else {
-    // ── 404 Handler (Dev only — in prod the SPA catch-all handles it) ──
-    app.use((req, res) => {
-        res.status(404).json({
-            success: false,
-            error: { message: `Route ${req.method} ${req.originalUrl} not found`, code: 404 },
-        });
-    });
-}
+});
 
 // ── Error Handler ────────────────────────────────────────────
 app.use(errorHandler);

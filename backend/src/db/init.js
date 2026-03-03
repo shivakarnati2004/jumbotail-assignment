@@ -1,57 +1,51 @@
 /**
- * Database Initialization Script
- * Creates the jumbotail_shipping database (local only), then runs schema.sql and seed.sql.
- * When DATABASE_URL is set (Render), skips database creation since the DB is pre-provisioned.
+ * Creates the jumbotail_shipping database if it doesn't exist,
+ * then runs schema.sql and seed.sql.
  */
 require('dotenv').config();
 const { Client, Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
 
-function getConnectionConfig(dbOverride) {
-    if (process.env.DATABASE_URL) {
-        return {
-            connectionString: process.env.DATABASE_URL,
-            ssl: { rejectUnauthorized: false },
-        };
-    }
-    return {
+async function run() {
+    // Step 1: Connect to default 'postgres' database to create our DB
+    const adminClient = new Client({
         host: process.env.DB_HOST || 'localhost',
         port: parseInt(process.env.DB_PORT, 10) || 5432,
         user: process.env.DB_USER || 'postgres',
         password: process.env.DB_PASSWORD || 'postgres',
-        database: dbOverride || process.env.DB_NAME || 'jumbotail_shipping',
-    };
-}
+        database: 'postgres',
+    });
 
-async function run() {
-    // Step 1: Create database (skip on Render — DB is pre-provisioned)
-    if (!process.env.DATABASE_URL) {
-        const adminClient = new Client(getConnectionConfig('postgres'));
+    try {
+        await adminClient.connect();
+        console.log('✅ Connected to PostgreSQL');
+
+        // Create database if not exists
+        const dbName = process.env.DB_NAME || 'jumbotail_shipping';
         try {
-            await adminClient.connect();
-            console.log('✅ Connected to PostgreSQL');
-
-            const dbName = process.env.DB_NAME || 'jumbotail_shipping';
-            try {
-                await adminClient.query(`CREATE DATABASE ${dbName}`);
-                console.log(`✅ Database "${dbName}" created`);
-            } catch (e) {
-                if (e.code === '42P04') {
-                    console.log(`ℹ️  Database "${dbName}" already exists`);
-                } else {
-                    throw e;
-                }
+            await adminClient.query(`CREATE DATABASE ${dbName}`);
+            console.log(`✅ Database "${dbName}" created`);
+        } catch (e) {
+            if (e.code === '42P04') {
+                console.log(`ℹ️  Database "${dbName}" already exists`);
+            } else {
+                throw e;
             }
-        } finally {
-            await adminClient.end();
         }
-    } else {
-        console.log('ℹ️  DATABASE_URL detected — skipping database creation');
+    } finally {
+        await adminClient.end();
     }
 
     // Step 2: Connect to our database and run schema + seed
-    const pool = new Pool(getConnectionConfig());
+    const pool = new Pool({
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DB_PORT, 10) || 5432,
+        user: process.env.DB_USER || 'postgres',
+        password: process.env.DB_PASSWORD || 'postgres',
+        database: process.env.DB_NAME || 'jumbotail_shipping',
+    });
+
     const client = await pool.connect();
     try {
         const schemaSQL = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf-8');
