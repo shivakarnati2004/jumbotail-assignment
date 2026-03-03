@@ -18,8 +18,19 @@
 
 ---
 
+## 🎬 Live Demo
+
+> Watch the full walkthrough of the application — from the splash screen to the shipping calculator, dashboard, and all management pages.
+
+<p align="center">
+  <img src="screenshots/demo.webp" alt="Jumbotail App Demo" width="800"/>
+</p>
+
+---
+
 ## 📋 Table of Contents
 
+- [Live Demo](#-live-demo)
 - [Problem Statement](#-problem-statement)
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
@@ -33,6 +44,7 @@
 - [Design Patterns Used](#-design-patterns-used)
 - [Screenshots](#-screenshots)
 - [Future Roadmap](#-future-roadmap)
+- [About the Developer](#-about-the-developer)
 
 ---
 
@@ -132,6 +144,7 @@ graph TB
 | **Frontend** | React 18, Vite | Single Page Application with modern tooling |
 | **Styling** | Vanilla CSS | Jumbotail brand design system |
 | **Backend** | Node.js, Express | RESTful API server |
+| **Backend (Familiar)** | Java, Spring Boot | Can extend with Java microservices |
 | **Database** | PostgreSQL | Relational data store for all entities |
 | **AI** | Google Gemini 2.0 Flash | AI-powered shipping assistant |
 | **Maps** | OpenStreetMap | Location visualization |
@@ -487,50 +500,6 @@ npx vite --host
 
 ---
 
-## 🚀 Deploy to Render
-
-This project includes a **`render.yaml`** blueprint for one-click deployment.
-
-### Option A: One-Click Blueprint
-
-1. Push this repo to GitHub
-2. Go to [Render Dashboard → Blueprints](https://dashboard.render.com/blueprints)
-3. Click **New Blueprint Instance** → select your GitHub repo
-4. Render will auto-detect `render.yaml` and create:
-   - A **PostgreSQL** database (free tier)
-   - A **Web Service** (free tier)
-5. **Set `GEMINI_API_KEY`** in the Render dashboard → Environment tab
-6. After the first deploy, initialize the database:
-   ```bash
-   # In Render Shell (or connect to the DB externally)
-   npm run db:init
-   ```
-
-### Option B: Manual Setup
-
-1. **Create a PostgreSQL database** on Render (free tier)
-2. **Create a Web Service** (Node):
-   - **Build Command**: `npm run render-build`
-   - **Start Command**: `npm start`
-3. **Add Environment Variables** in the Render dashboard:
-   | Variable | Value |
-   |:---|:---|
-   | `NODE_ENV` | `production` |
-   | `DATABASE_URL` | *(auto from Render PostgreSQL)* |
-   | `GEMINI_API_KEY` | Your Gemini API key |
-4. Deploy and initialize the database
-
-### Environment Variables Reference
-
-| Variable | Required | Description |
-|:---|:---:|:---|
-| `DATABASE_URL` | ✅ | PostgreSQL connection string (provided by Render) |
-| `GEMINI_API_KEY` | ✅ | Google Gemini AI API key |
-| `NODE_ENV` | ✅ | Set to `production` on Render |
-| `PORT` | ❌ | Auto-set by Render (default: 3000) |
-
----
-
 ## 🧪 Testing
 
 ```bash
@@ -575,20 +544,61 @@ npx jest --verbose
 
 ## 📸 Screenshots
 
-### Splash Entrance
+### 🎬 Splash Entrance
 > Cinematic full-screen intro with Jumbotail branding, Ken Burns parallax, and floating particles.
 
-### Dashboard
+<p align="center">
+  <img src="screenshots/splash_screen.png" alt="Splash Screen" width="800"/>
+</p>
+
+### 📊 Dashboard
 > Hero banner, stat cards (Orders, Revenue, Customers, Sellers, Products, Warehouses), recent orders table.
 
-### Shipping Calculator
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard" width="800"/>
+</p>
+
+### 🚚 Shipping Calculator
 > Transport mode selection cards (Auto/Mini Van/Truck/Aeroplane), route map, delivery speed, Save & Proceed to order.
 
-### AI Chat Assistant
-> Floating 🤖 widget powered by Google Gemini — answers shipping queries with live database context.
+<p align="center">
+  <img src="screenshots/calculator.png" alt="Shipping Calculator" width="800"/>
+</p>
 
-### Warehouses with Map
+### 📦 Products Management
+> Full product catalogue with categories, weight, pricing, and stock management.
+
+<p align="center">
+  <img src="screenshots/products.png" alt="Products" width="800"/>
+</p>
+
+### 🏪 Customers (Kirana Stores)
+> Manage Kirana store customers with location data, contact details, and order tracking.
+
+<p align="center">
+  <img src="screenshots/customers.png" alt="Customers" width="800"/>
+</p>
+
+### 🧑‍💼 Sellers
+> Seller management dashboard with ratings, active status, and product associations.
+
+<p align="center">
+  <img src="screenshots/sellers.png" alt="Sellers" width="800"/>
+</p>
+
+### 🏢 Warehouses with Map
 > Interactive OpenStreetMap showing all 10 warehouse locations across India.
+
+<p align="center">
+  <img src="screenshots/warehouses.png" alt="Warehouses" width="800"/>
+</p>
+
+### 📋 Orders
+> Order history with shipping details, delivery speed, transport mode, and cost breakdown.
+
+<p align="center">
+  <img src="screenshots/orders.png" alt="Orders" width="800"/>
+</p>
 
 ---
 
@@ -671,4 +681,22 @@ MIT License — see [LICENSE](LICENSE) for details.
 <p align="center">
   <b>Built with ❤️ for Jumbotail</b><br/>
   <i>Happiness. Prosperity. Delivered.</i> 🛒
+</p>
+
+---
+
+## 👋 About the Developer
+
+Hi, I'm **Shiva Karnati**! 👨‍💻
+
+I'm deeply passionate about building scalable, production-grade applications and I'm very enthusiastic about **internship and job opportunities**. This project showcases my ability to architect full-stack solutions with clean code, design patterns, and AI integrations.
+
+I am genuinely excited about **Jumbotail's mission** of empowering Kirana stores across India, and I would love the opportunity to contribute more — whether it's building microservices with **Java & Spring Boot**, scaling the platform with advanced logistics, or integrating cutting-edge AI features.
+
+**I can implement much more related to Jumbotail** — from payment gateways and real-time tracking to demand forecasting and multi-warehouse optimization. Let's build something amazing together! 🚀
+
+📧 **Let's connect!**
+
+<p align="center">
+  <a href="https://github.com/shivakarnati2004"><img src="https://img.shields.io/badge/GitHub-shivakarnati2004-181717?logo=github" alt="GitHub"/></a>
 </p>
